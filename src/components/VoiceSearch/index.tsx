@@ -1,54 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal } from '@mui/material';
-import styles from './styles.module.css'
+import styles from './styles.module.css';
 import { varela_round } from '@/app/fonts/fonts';
-
 import MicNoneIcon from '@mui/icons-material/MicNone';
 
-type params = { 
+type Params = { 
   onSearch: (transcript: string) => void,
   onConfirm: (text: string) => void,
   open: boolean,
   handleClose: () => void
 };
 
-const VoiceSearch = ({ onSearch, onConfirm, open, handleClose }: params) => {
+const VoiceSearch = ({ onSearch, onConfirm, open, handleClose }: Params) => {
   const [text, setText] = useState('');
   const [isListening, setIsListening] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
 
-  const SpeechRecognition =
-    window.SpeechRecognition || window.webkitSpeechRecognition;
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (SpeechRecognition) {
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'pt-BR';
+        recognition.interimResults = false;
+        recognition.continuous = false;
 
-  if (!SpeechRecognition) {
-    return <p>Seu navegador não suporta reconhecimento de voz.</p>;
-  }
+        recognition.onend = () => {
+          setIsListening(false);
+        };
 
-  const recognition = new SpeechRecognition();
-  recognition.lang = 'pt-BR';
-  recognition.interimResults = false;
-  recognition.continuous = false;
+        recognition.onresult = (event: SpeechRecognitionEvent) => {
+          const transcript = event.results[0][0].transcript;
+          setText(transcript);
+          if (onSearch) onSearch(transcript);
+        };
+
+        recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+          setError(event.error);
+          setIsListening(false);
+        };
+
+        setRecognition(recognition);
+      } else {
+        setError('Seu navegador não suporta reconhecimento de voz.');
+      }
+    }
+  }, [onSearch]);
 
   const startListening = () => {
-    setIsListening(true);
-    setText('')
-    setError(null);
-    recognition.start();
-  };
-
-  recognition.onend = () => {
-    setIsListening(false);
-  };
-
-  recognition.onresult = (event: SpeechRecognitionEvent) => {
-    const transcript = event.results[0][0].transcript;
-    setText(transcript);
-    if (onSearch) onSearch(transcript);
-  };
-
-  recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
-    setError(event.error);
-    setIsListening(false);
+    if (recognition) {
+      setIsListening(true);
+      setText('');
+      setError(null);
+      recognition.start();
+    }
   };
 
   return (
@@ -75,11 +81,11 @@ const VoiceSearch = ({ onSearch, onConfirm, open, handleClose }: params) => {
         </div>
 
         <div style={{ marginTop: '20px' }}>
-          {
-            error ? 
-            <p style={{color:'rgba(0, 0, 0, 0.6)'}}>Nada reconhecido</p> :
+          {error ? (
+            <p style={{color:'rgba(0, 0, 0, 0.6)'}}>Nada reconhecido</p>
+          ) : (
             <p>{text}</p>
-          }
+          )}
 
           {text && (
             <button className={styles.confirm} onClick={() => onConfirm(text)}>
