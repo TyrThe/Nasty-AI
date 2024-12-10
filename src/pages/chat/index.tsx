@@ -17,11 +17,8 @@ import FormattedText from '@/components/mensageComponents';
 
 import VoiceSearch from '@/components/VoiceSearch';
 
-type params = {
-  key: string | undefined
-}
 
-export default function Chat({key}:params) {
+export default function Chat() {
   const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
   const [userInput, setUserInput] = useState('');
   const [waiting, setWaiting] = useState<boolean>(false);
@@ -88,7 +85,7 @@ export default function Chat({key}:params) {
     setUserInput(''); 
   
     const context = messages.map((msg) => `${msg.content}`).join('\n') + `\nuser: ${message}`;
-    const result = await Gemini({ prompt: context, key });
+    const result = await Gemini({ prompt: context });
   
     const botMessage = { role: 'bot', content: result };
     setMessages((prev) => [...prev, botMessage]);
@@ -117,7 +114,7 @@ export default function Chat({key}:params) {
         <Image alt="background" className={styles.image_background} src={background} />
        
         <VoiceSearch 
-           onSearch={(query: any) => console.log('Busca:', query)}
+           onSearch={(query: string) => console.log('Busca:', query)}
           open={isListening} 
           onConfirm={handleVoiceConfirm}
           handleClose={()=>setIsListening(false)}          

@@ -20,7 +20,6 @@ export default function FormattedText({ text }: Params) {
   return (
     <div>
       <ReactMarkdown
-        children={text}
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw]}
         components={{
@@ -50,20 +49,21 @@ export default function FormattedText({ text }: Params) {
                  </div>
                 
                  <SyntaxHighlighter 
-                    children={String(children).replace(/\n$/, '')} 
                     style={theme} 
                     language={match[1]} 
                     PreTag="div" 
                     className={styles.codeBlock} 
                     {...props} 
-                  /> 
+                  >{String(children).replace(/\n$/, '')}</SyntaxHighlighter>
                </div>
                 ) :  ( 
                   <code className={styles.codeLine} {...props}> {children} </code> 
               );
             }
         }}
-      />
+      >
+        {text}
+      </ReactMarkdown>
     </div>
   );
 }

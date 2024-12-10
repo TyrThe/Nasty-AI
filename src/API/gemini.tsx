@@ -2,10 +2,9 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 type Gemini = {
   prompt: string;
-  key: string | undefined
 };
 
-export async function Gemini({prompt, key}: Gemini) {
+export async function Gemini({prompt}: Gemini) {
   const keyTest = process.env.NEXT_PUBLIC_API_KEY;
 
   console.log("API: ", keyTest)

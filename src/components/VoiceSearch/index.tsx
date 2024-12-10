@@ -5,11 +5,11 @@ import { varela_round } from '@/app/fonts/fonts';
 
 import MicNoneIcon from '@mui/icons-material/MicNone';
 
-type params = {
-  onSearch: any,
-  onConfirm: (text: string) => void, // Callback para confirmar
+type params = { 
+  onSearch: (transcript: string) => void,
+  onConfirm: (text: string) => void,
   open: boolean,
-  handleClose: any
+  handleClose: () => void
 };
 
 const VoiceSearch = ({ onSearch, onConfirm, open, handleClose }: params) => {
