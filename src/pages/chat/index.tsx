@@ -17,7 +17,11 @@ import FormattedText from '@/components/mensageComponents';
 
 import VoiceSearch from '@/components/VoiceSearch';
 
-export default function Chat() {
+type params = {
+  key: string | undefined
+}
+
+export default function Chat({key}:params) {
   const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
   const [userInput, setUserInput] = useState('');
   const [waiting, setWaiting] = useState<boolean>(false);
@@ -70,7 +74,7 @@ export default function Chat() {
   };
   
   async function Enviar(input?: string) {
-    const message = input ?? userInput; // Usa o valor do argumento ou o estado
+    const message = input ?? userInput;
     console.log("user: ", message);
   
     if (!message.trim() || loading) return;
@@ -84,7 +88,7 @@ export default function Chat() {
     setUserInput(''); 
   
     const context = messages.map((msg) => `${msg.content}`).join('\n') + `\nuser: ${message}`;
-    const result = await Gemini({ prompt: context });
+    const result = await Gemini({ prompt: context, key });
   
     const botMessage = { role: 'bot', content: result };
     setMessages((prev) => [...prev, botMessage]);
