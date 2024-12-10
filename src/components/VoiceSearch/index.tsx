@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Modal } from '@mui/material';
+import { Modal } from '@mui/material';
 import styles from './styles.module.css'
 import { varela_round } from '@/app/fonts/fonts';
 

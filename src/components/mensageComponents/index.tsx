@@ -24,20 +24,20 @@ export default function FormattedText({ text }: Params) {
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw]}
         components={{
-          h1: ({node, ...props}) => <h1 className={styles.title1} {...props} />,
-          h2: ({node, ...props}) => <h2 className={styles.title2} {...props} />,
-          h3: ({node, ...props}) => <h3 className={styles.title3} {...props} />,
-          h4: ({node, ...props}) => <h4 className={styles.title4} {...props} />,
-          h5: ({node, ...props}) => <h5 className={styles.title5} {...props} />,
-          h6: ({node, ...props}) => <h6 className={styles.title6} {...props} />,
-          table: ({node, ...props}) => ( <div className={styles.tableContainer}> <table className={styles.table} {...props} /> </div>),
-          th: ({node, ...props}) => <th className={styles.th} {...props} />,
-          td: ({node, ...props}) => <td className={styles.td} {...props} />,
-          ul: ({node, ...props}) => <ul className={styles.ul} {...props} />,
-          li: ({node, ...props}) => <li className={styles.li} {...props} />,
-          sup: ({node, ...props}) => <sup className={styles.sup} {...props} />,
-          sub: ({node, ...props}) => <sub className={styles.sub} {...props} />,
-          code({ node, inline, className, children, ...props }) { 
+          h1: ({...props}) => <h1 className={styles.title1} {...props} />,
+          h2: ({...props}) => <h2 className={styles.title2} {...props} />,
+          h3: ({...props}) => <h3 className={styles.title3} {...props} />,
+          h4: ({...props}) => <h4 className={styles.title4} {...props} />,
+          h5: ({...props}) => <h5 className={styles.title5} {...props} />,
+          h6: ({...props}) => <h6 className={styles.title6} {...props} />,
+          table: ({...props}) => ( <div className={styles.tableContainer}> <table className={styles.table} {...props} /> </div>),
+          th: ({...props}) => <th className={styles.th} {...props} />,
+          td: ({...props}) => <td className={styles.td} {...props} />,
+          ul: ({...props}) => <ul className={styles.ul} {...props} />,
+          li: ({...props}) => <li className={styles.li} {...props} />,
+          sup: ({...props}) => <sup className={styles.sup} {...props} />,
+          sub: ({...props}) => <sub className={styles.sub} {...props} />,
+          code({inline, className, children, ...props }) { 
             const match = /language-(\w+)/.exec(className || ''); 
               return !inline && match ? ( 
                <div className={styles.container_code}>
