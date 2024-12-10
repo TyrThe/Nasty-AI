@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'; 
-import { coldarkCold as theme } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { coldarkCold as theme } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import styles from './styles.module.css';
 import { varela_round } from '@/app/fonts/fonts';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
