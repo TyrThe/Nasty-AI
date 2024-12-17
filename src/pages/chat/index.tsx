@@ -17,7 +17,7 @@ import FormattedText from '@/components/mensageComponents';
 
 import VoiceSearch from '@/components/VoiceSearch';
 
-import { evaPersonality } from './botPersonality';
+import { evaPersonality } from '../../config/botPersonality';
 
 interface Message {
   role: string;
@@ -41,7 +41,7 @@ export default function Chat() {
       ];
       setMessages([{ role: 'bot', content: randomGreeting }]);
     }
-  }, []);
+  }, [messages.length]);
 
   useEffect(() => {
     if (chatWindowRef.current) {
