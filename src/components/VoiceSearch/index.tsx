@@ -43,7 +43,7 @@ const VoiceSearch = ({ onSearch, onConfirm, open, handleClose }: Params) => {
 
         setRecognition(recognition);
       } else {
-        setError('Seu navegador não suporta reconhecimento de voz.');
+        setError('Your browser doesnt support voice recognition');
       }
     }
   }, [onSearch]);
@@ -66,7 +66,7 @@ const VoiceSearch = ({ onSearch, onConfirm, open, handleClose }: Params) => {
       aria-describedby="modal-modal-description"
     >
       <div className={styles.container_body}>
-        <h1>{isListening ? 'Ouvindo...' : 'Clique e Fale'}</h1>
+        <h1>{isListening ? 'Im all ears...' : 'click and talk'}</h1>
         <div className={styles.container_anim_mic}>
           <button
             onClick={startListening}
