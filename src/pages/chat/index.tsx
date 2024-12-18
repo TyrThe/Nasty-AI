@@ -6,7 +6,6 @@ import styles from './styles.module.css';
 import { Gemini } from '@/API/gemini';
 import { varela_round } from '@/app/fonts/fonts';
 
-import eva from '../../assets/eva.png';
 import background from '../../assets/background_chat.png';
 
 import MicNoneIcon from '@mui/icons-material/MicNone';
@@ -144,7 +143,7 @@ export default function Chat() {
   return (
     <div className={styles.container}>
       <div className={styles.container_top}>
-        <Image className={styles.image_eva} src={eva} alt="eva" />
+        
         <h1 className={`${styles.name_eva} ${varela_round.className}`}>NastyAI</h1>
       </div>
 
@@ -152,7 +151,7 @@ export default function Chat() {
         <Image alt="background" className={styles.image_background} src={background} />
 
         <VoiceSearch
-          onSearch={(query: string) => console.log('Busca:', query)}
+          onSearch={(query: string) => console.log('search:', query)}
           open={isListening}
           onConfirm={handleVoiceConfirm}
           handleClose={() => setIsListening(false)}
@@ -207,7 +206,7 @@ export default function Chat() {
                 onClick={() => setIsListening(true)} 
                 className={styles.micButton}
               >
-                <MicNoneIcon style={{ color: 'white' }} />
+                <MicNoneIcon style={{ color: 'black' }} />
               </button>
 
               <button 

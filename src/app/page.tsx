@@ -1,11 +1,6 @@
-import Chat from "@/pages/chat";
+// pages/page.tsx
+import LandingPage from "@/components/LandingPage";
 
-
-
-export default function Home(){
-  return(
-    <div>
-      <Chat/>
-    </div>
-  )
+export default function Home() {
+  return <LandingPage />;
 }
